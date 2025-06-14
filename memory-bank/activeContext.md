@@ -27,6 +27,9 @@
   - It handles the `submit-form` event, currently displaying the submitted data on the page and clearing the form.
 - Updated `tsconfig.app.json` to include `"baseUrl": "."` (previous step).
 - The `doer.model.ts` file (interface `Doer { id: number; firstName: string; lastName: string; }`) was provided by the user (previous step).
+- **Storybook Integration:**
+  - Storybook has been set up and configured for the project.
+  - Created `src/components/DoerForm.stories.ts` to showcase `DoerForm.vue` in Storybook.
 
 ## Next Steps
 
