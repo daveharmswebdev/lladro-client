@@ -7,8 +7,10 @@ const meta: Meta<typeof DoerTable> = {
   component: DoerTable,
   tags: ['autodocs'],
   argTypes: {
-    // Define argTypes for props if DoerTable had them.
-    // For now, it's a stub.
+    doers: {
+      control: 'object',
+      description: 'Array of doer objects to display in the table.',
+    },
   },
 };
 
@@ -34,43 +36,30 @@ const mockDoers: Doer[] = [
 
 export const Default: Story = {
   args: {
-    // Props for DoerTable would go here.
-    // For now, it's a stub, so no specific args.
-    // This story will just render the stubbed component.
+    doers: mockDoers.slice(0, 5), // Display first 5 by default for this story
   },
-  render: args => ({
-    components: { DoerTable },
-    setup() {
-      return { args };
-    },
-    template: '<DoerTable v-bind="args" />',
-  }),
 };
 
-// Placeholder stories for scenarios from .clinerules/03-Doer.md
-// These will be properly implemented when DoerTable.vue is functional.
-
 export const NoDoers: Story = {
-  name: 'No Doers (Placeholder)',
+  name: 'No Doers',
   args: {
-    // Simulate no doers - this will depend on how DoerTable handles data
+    doers: [],
   },
-  // render function will be needed to pass empty data or set up a specific state
-  // For now, it will just render the default stub.
 };
 
 export const ThreeDoers: Story = {
-  name: 'Three Doers (Placeholder)',
+  name: 'Three Doers',
   args: {
-    // Simulate three doers
+    doers: mockDoers.slice(0, 3),
   },
-  // render function will be needed to pass specific data
 };
 
-export const ThirteenDoersPaginated: Story = {
-  name: 'Thirteen Doers - Paginated (Placeholder)',
+export const ThirteenDoers: Story = {
+  name: 'Thirteen Doers (Pre-Pagination)',
   args: {
-    // Simulate thirteen doers
+    doers: mockDoers,
   },
-  // render function will be needed to pass specific data and test pagination
 };
+// Note: ThirteenDoersPaginated story name is changed to ThirteenDoers
+// as pagination will be handled within the component itself.
+// This story will show all 13 doers, and later the component will paginate them.

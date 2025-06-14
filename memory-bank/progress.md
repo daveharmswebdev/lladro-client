@@ -12,7 +12,7 @@
   - Configured for `/` (HomeView), `/doers` (DoersView), `/todos` (TodosView), and `/regions` (RegionsView).
 - **Views:**
   - `src/views/HomeView.vue` (existing, simple page).
-  - `src/views/DoersView.vue`: Created, integrates `DoerForm` and a stubbed `DoerTable`. Handles `DoerForm` submission.
+  - `src/views/DoersView.vue`: Created, integrates `DoerForm` and `DoerTable`. Handles `DoerForm` submission.
   - `src/views/TodosView.vue`: Created (stub).
   - `src/views/RegionsView.vue`: Created (stub).
 - **Doer Creation Form (`src/components/DoerForm.vue`):**
@@ -25,33 +25,31 @@
   - Emits `update:firstName`, `update:lastName` for two-way binding.
   - Emits `submit-form` with `{ firstName, lastName }` payload on valid submission.
 - **Doer Table (`src/components/DoerTable.vue`):**
-  - Created as a stub component.
+  - Implemented with columns: ID, First Name, Last Name, Total Todos.
+  - Displays "You currently do not have any doers." message when no doers are provided.
+  - Implemented pagination (5 doers per page with navigation controls).
+  - Implemented sorting by ID, First Name, Last Name, and Total Todos (ascending/descending with indicators).
+  - Accepts a `doers` prop to receive the list of doers.
 - **Unit Tests:**
   - `src/components/__tests__/DoerForm.spec.ts` (comprehensive tests exist).
-  - `src/components/__tests__/DoerTable.spec.ts` (created with placeholder tests).
+  - `src/components/__tests__/DoerTable.spec.ts` (comprehensive tests for display, pagination, sorting, no-doers message).
 - `tsconfig.app.json` includes `"baseUrl": "."`.
 - **Doer Model (`src/models/doer.model.ts`):**
   - Updated to include `totalTodos?: number`.
 - **Storybook:**
   - Storybook is set up.
   - `src/components/DoerForm.stories.ts` exists.
-  - `src/components/DoerTable.stories.ts` created (with placeholder stories).
+  - `src/components/DoerTable.stories.ts` updated with scenarios for No Doers, Three Doers, and Thirteen Doers (pre-pagination), all utilizing the `doers` prop.
 
 ## What's Left to Build
 
 - **Core 'Doer' Functionality:**
-  - **`DoerTable.vue` Implementation:**
-    - Display list of 'Doers' with columns: id, firstname, lastname, total todos (as per `.clinerules/03-Doer.md`).
-    - Implement pagination (5 doers per page).
-    - Implement sorting (id, firstname, lastname).
-    - Display "You currently do not have any doers." message when applicable.
   - Editing an existing 'Doer' (The `DoerForm` supports 'edit' mode, but workflow integration in `DoersView.vue` is needed).
   - Deleting a 'Doer'.
-- **State Management for 'Doers':** (e.g., Pinia, or a simple reactive array in a composable for now). `DoersView.vue` currently uses a local reactive array.
+- **State Management for 'Doers':** (e.g., Pinia, or a simple reactive array in a composable for now). `DoersView.vue` currently uses a local reactive array and needs to pass data to `DoerTable.vue`.
 - **Styling:** Enhanced styling for navbar, 'Doer' components, and overall application.
 - **Testing:**
-  - Unit tests (Vitest) for `DoersView.vue`, `DoerTable.vue`, and other future components/logic.
-  - Component tests/showcase (Storybook) for `DoerTable.vue` (scenarios from `.clinerules/03-Doer.md`).
+  - Unit tests (Vitest) for `DoersView.vue` and other future components/logic.
   - End-to-end tests (Playwright) for user flows involving 'Doers'.
 - **Persistence:** (Optional, e.g., using local storage or a backend API for 'Doers').
 - **ID Generation:** Current `DoersView.vue` uses `Date.now()` for ID; a more robust strategy is needed.
@@ -60,18 +58,16 @@
 
 ## Current Status
 
-- **Phase:** Feature Development - Navbar and Page Structure.
-- Navbar and basic page routing for Home, Doers, Todos, and Regions are implemented.
-- `DoersView.vue` now hosts `DoerForm.vue` and a stub `DoerTable.vue`.
-- `DoerForm.vue` correctly emits data, and `DoersView.vue` can receive it.
-- The project is ready for implementing `DoerTable.vue` functionality.
+- **Phase:** Feature Development - DoerTable Implementation.
+- `DoerTable.vue` is now fully implemented with display, pagination, and sorting features as per requirements.
+- Associated Storybook stories and unit tests for `DoerTable.vue` have been updated.
+- The project is ready for integrating `DoerTable.vue` into `DoersView.vue` with actual data flow and state management.
 
 ## Known Issues
 
-- **IDE Path Resolution:** Vetur/Volar (Vue language server in VS Code) might show errors for `@/*` path aliases (e.g., in `src/App.vue`, `src/views/DoersView.vue`). The update to `tsconfig.app.json` (adding `"baseUrl": "."`) aims to fix this. If errors persist, restarting the VS Code TypeScript server or VS Code itself is recommended.
+- **IDE Path Resolution:** Vetur/Volar (Vue language server in VS Code) might show errors for `@/*` path aliases. The update to `tsconfig.app.json` (adding `"baseUrl": "."`) aims to fix this. If errors persist, restarting the VS Code TypeScript server or VS Code itself is recommended.
 - The application currently has no persistent storage or advanced state management for 'Doers' beyond the local array in `DoersView.vue`.
 - Styling is minimal.
-- `DoerTable.vue` is just a stub.
 
 ## Evolution of Project Decisions
 
@@ -84,11 +80,11 @@
   - Created `TheNavbar.vue` and integrated it.
   - Created `DoersView.vue`, `TodosView.vue` (stub), `RegionsView.vue` (stub).
   - Updated router configuration.
-  - Created `DoerTable.vue` (stub).
-  - Integrated `DoerForm.vue` and `DoerTable.vue` into `DoersView.vue`.
+  - Integrated `DoerForm.vue` and `DoerTable.vue` (initially stub) into `DoersView.vue`.
   - Updated `DoerForm.vue` to emit data with its `submit-form` event.
   - Shifted Doer creation logic from `HomeView.vue` to `DoersView.vue`.
-- **DoerTable Stories, Model & Unit Tests (Current Task):**
-  - Created `src/components/DoerTable.stories.ts` with placeholder stories.
+- **DoerTable Implementation (Current Task):**
+  - Implemented full `DoerTable.vue` functionality (display, pagination, sorting).
+  - Updated `src/components/DoerTable.stories.ts` with relevant scenarios.
   - Updated `src/models/doer.model.ts` to include `totalTodos`.
-  - Created `src/components/__tests__/DoerTable.spec.ts` with placeholder unit tests.
+  - Updated `src/components/__tests__/DoerTable.spec.ts` with comprehensive unit tests.
