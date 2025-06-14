@@ -2,39 +2,54 @@
 
 ## Current Focus
 
-- Enhancing `DoerForm.vue` with validation and mode handling (create/edit) based on `.clinerules/03-Doer.md`.
-- Implementing unit tests for `DoerForm.vue` to cover new validation logic and behaviors.
+- Implementing Navbar and basic page structure (Home, Doers, Todos, Regions) as per `.clinerules/04-nav.md`.
+- Integrating `DoerForm.vue` and a stubbed `DoerTable.vue` into the new `DoersView.vue`.
+- Ensuring `DoerForm.vue` correctly emits data for `DoersView.vue` to handle.
 
 ## Recent Changes
 
-- Updated `src/components/DoerForm.vue`:
-  - Added a `mode` prop ('create' | 'edit') to control button text ('Create' or 'Update').
-  - Implemented input validation for `firstName` and `lastName`:
-    - Required field check.
-    - 25 character limit.
-  - Added display of error messages for each field.
-  - The submit button is now disabled if there are validation errors.
-  - Removed HTML `required` attributes, relying on script-based validation.
-- Created `src/components/__tests__/DoerForm.spec.ts` with unit tests for `DoerForm.vue` using Vitest and Vue Test Utils. Tests cover:
-  - Rendering in 'create' and 'edit' modes.
-  - Input event emissions.
-  - Validation logic for required fields and character limits.
-  - Button disabled state based on validation.
-  - Form submission event emission for valid forms.
-  - Non-emission of submit event for invalid forms.
-- Integrated `DoerForm.vue` into `src/views/HomeView.vue` (previous step, still relevant).
-  - `HomeView.vue` now manages the state for the form inputs (`firstName`, `lastName`).
-  - It handles the `submit-form` event, currently displaying the submitted data on the page and clearing the form.
-- Updated `tsconfig.app.json` to include `"baseUrl": "."` (previous step).
-- The `doer.model.ts` file (interface `Doer { id: number; firstName: string; lastName: string; }`) was provided by the user (previous step).
-- **Storybook Integration:**
-  - Storybook has been set up and configured for the project.
-  - Created `src/components/DoerForm.stories.ts` to showcase `DoerForm.vue` in Storybook.
+- **Navbar Implementation:**
+  - Created `src/components/TheNavbar.vue` with links to Home, Doers, Todos, and Regions.
+  - Integrated `TheNavbar.vue` into `src/App.vue`.
+- **View Creation:**
+  - Created `src/views/DoersView.vue`.
+  - Created `src/views/TodosView.vue` (stub).
+  - Created `src/views/RegionsView.vue` (stub).
+- **Router Configuration:**
+  - Updated `src/router/index.ts` to include routes for `/`, `/doers`, `/todos`, and `/regions`.
+- **Doer Components:**
+  - Created `src/components/DoerTable.vue` (stub).
+  - Integrated `DoerForm.vue` and `DoerTable.vue` into `src/views/DoersView.vue`.
+  - `DoersView.vue` now handles `DoerForm` submission (currently logs to console and adds to a local reactive list).
+- **`DoerForm.vue` Update:**
+  - Modified `DoerForm.vue` to emit `submit-form` with a payload: `{ firstName: string; lastName: string }`. This aligns with `DoersView.vue`'s handler.
+- **Previous `DoerForm.vue` enhancements (still relevant):**
+  - Added a `mode` prop ('create' | 'edit').
+  - Implemented input validation (required, 25 char limit) and error messages.
+  - Submit button disabled on validation errors.
+- **Previous Unit Tests (still relevant):**
+  - `src/components/__tests__/DoerForm.spec.ts` covers `DoerForm.vue`'s logic.
+- **Previous `HomeView.vue` integration (now superseded by `DoersView.vue` for Doer management):**
+  - `HomeView.vue` previously managed `DoerForm` state. This responsibility is shifting to `DoersView.vue`.
+- `tsconfig.app.json` includes `"baseUrl": "."`.
+- **`doer.model.ts` Update:**
+  - Updated `Doer` interface to include `totalTodos?: number`.
+- **Storybook:**
+  - Storybook is set up.
+  - `src/components/DoerForm.stories.ts` exists.
+  - Created `src/components/DoerTable.stories.ts` (with placeholder stories).
+- **Unit Tests:**
+  - `src/components/__tests__/DoerForm.spec.ts` exists.
+  - Created `src/components/__tests__/DoerTable.spec.ts` (with placeholder tests for "no doers", pagination, sorting).
 
 ## Next Steps
 
-- Implement actual state management for 'Doers' (e.g., using Pinia or a simple reactive array for now).
-- Display a list of created 'Doers'.
+- Implement the `DoerTable.vue` component as per `.clinerules/03-Doer.md` (columns, pagination, sorting, no-doers message).
+- Flesh out unit tests in `src/components/__tests__/DoerTable.spec.ts` once `DoerTable.vue` is functional.
+- Flesh out `DoerTable.stories.ts` with actual scenarios once `DoerTable.vue` is functional.
+- Implement actual state management for 'Doers' (e.g., using Pinia).
+- Style the application, including the navbar and new views/components.
+- Address Vetur path alias errors if they persist (may require IDE/TS server restart).
 
 ## Active Decisions & Considerations
 
