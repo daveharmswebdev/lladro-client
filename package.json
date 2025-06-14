@@ -24,6 +24,7 @@
   "devDependencies": {
     "@playwright/test": "^1.51.1",
     "@storybook/addon-docs": "^9.0.9",
+    "@storybook/addon-themes": "^9.0.9",
     "@storybook/vue3-vite": "^9.0.9",
     "@tsconfig/node22": "^22.0.1",
     "@types/jsdom": "^21.1.7",

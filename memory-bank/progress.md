@@ -37,7 +37,7 @@
 - **Styling:** Enhanced styling for 'Doer' components and overall application.
 - **Testing:**
   - Unit tests (Vitest) for `HomeView.vue` (to ensure it correctly handles the updated `DoerForm` props and events, especially the new `mode` prop if `HomeView` starts managing edit functionality), and other future components/logic.
-  - Component tests/showcase (Storybook) for `DoerForm.vue` and other UI components.
+  - Component tests/showcase (Storybook) for `DoerForm.vue` (created: `src/components/DoerForm.stories.ts`) and other UI components.
   - End-to-end tests (Playwright) for user flows involving 'Doers'.
 - **Persistence:** (Optional, e.g., using local storage or a backend API for 'Doers').
 - **ID Generation:** Strategy for assigning `id` to new 'Doers'.
@@ -48,6 +48,7 @@
 - The `DoerForm.vue` component has been significantly enhanced with validation (required fields, character limits), error messages, and distinct 'create'/'edit' modes, guided by `.clinerules/03-Doer.md`.
 - Comprehensive unit tests for `DoerForm.vue` are complete.
 - The form remains integrated into `HomeView.vue`, which currently handles basic data submission for creation.
+- Storybook has been set up, and a story for `DoerForm.vue` (`src/components/DoerForm.stories.ts`) has been created.
 - The project is ready for the next steps, such as implementing state management for 'Doers' and unit testing `HomeView.vue`.
 
 ## Known Issues

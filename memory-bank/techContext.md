@@ -6,9 +6,9 @@
 - **Framework:** Vue.js (version as per `package.json`, likely Vue 3)
 - **Routing:** `vue-router`
 - **Build Tool:** Vite
-- **Unit Testing:** Vitest (planned)
+- **Unit Testing:** Vitest
 - **E2E Testing:** Playwright (planned)
-- **Component Development/Testing:** Storybook (planned)
+- **Component Development/Testing:** Storybook
 - **Linting:** ESLint (configured via `eslint.config.ts`)
 - **Formatting:** Prettier (configured via `.prettierrc.json`)
 - **Package Manager:** npm (inferred from `package-lock.json`)
@@ -39,7 +39,7 @@
 ## Dependencies
 
 - **Core Vue:** `vue`, `vue-router`
-- **Development:** `vite`, `@vitejs/plugin-vue`, `typescript`, `eslint`, `prettier`, `vitest`, `playwright`, `storybook` (some are planned, some are installed by default with Vue CLI).
+- **Development:** `vite`, `@vitejs/plugin-vue`, `typescript`, `eslint`, `prettier`, `vitest`, `playwright`, `storybook`, `@storybook/vue3-vite`, `@storybook/addon-docs`, `@storybook/addon-themes`, `eslint-plugin-storybook`.
   (A more detailed list can be derived from `package.json` when needed.)
 
 ## Tool Usage Patterns
@@ -48,6 +48,6 @@
 - **ESLint & Prettier:** Configured to maintain code quality and consistency. Auto-formatting may be applied by the editor on save.
 - **TypeScript:** Used for static typing to improve code maintainability and catch errors early.
 - **Git:** For version control (inferred from `.gitignore`, `.gitattributes`).
-- **Storybook:** Will be used for isolated component development and showcasing.
-- **Vitest:** Will be used for writing unit tests for components and logic.
+- **Storybook:** Used for isolated component development, testing, and showcasing. Stories are being created for components like `DoerForm.vue`.
+- **Vitest:** Used for writing unit tests for components and logic.
 - **Playwright:** Will be used for end-to-end testing of user flows.
