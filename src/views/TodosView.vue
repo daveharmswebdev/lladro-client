@@ -1,12 +1,22 @@
 <template>
   <div class="todos-view">
     <h1>Todos</h1>
-    <p>This is the Todos page. Content will be added later.</p>
+    <TodoTable :todos="allTodos" />
   </div>
 </template>
 
 <script setup lang="ts">
-// Script setup
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useTodosStore } from '../stores/todos.store';
+import TodoTable from '../components/TodoTable.vue';
+
+const todosStore = useTodosStore();
+const { allTodos } = storeToRefs(todosStore);
+
+onMounted(() => {
+  todosStore.getManyTodos();
+});
 </script>
 
 <style scoped>
