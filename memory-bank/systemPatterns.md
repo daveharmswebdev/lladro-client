@@ -6,10 +6,10 @@
 - **Routing:** `vue-router` for managing navigation between views.
 - **Structure:**
   - `main.ts`: Entry point, initializes Vue app and router.
-  - `App.vue`: Root component, contains `<RouterView />`.
-  - `views/`: Directory for page-level components.
-  - `components/`: Directory for reusable UI components.
-  - `router/index.ts`: Router configuration.
+  - `App.vue`: Root component, contains `TheNavbar.vue` and `<RouterView />`.
+  - `views/`: Directory for page-level components (`HomeView.vue`, `DoersView.vue`, `TodosView.vue`, `RegionsView.vue`).
+  - `components/`: Directory for reusable UI components (`TheNavbar.vue`, `DoerForm.vue`, `DoerTable.vue`).
+  - `router/index.ts`: Router configuration for all views.
   - `assets/`: For static assets like CSS.
   - `stores/`: (Currently unused, but available for Pinia state management if needed).
 
@@ -18,19 +18,22 @@ graph TD
     A[main.ts] --> B(Vue App Instance)
     B --> C(Router)
     B --> D(App.vue)
+    D --> D_Navbar[TheNavbar.vue]
     D --> E[RouterView]
     E --> F{Current Route Component}
-    F --> G[HomeView.vue]
-    F --> H[...]
-    G --> I[...Child Components]
 
     subgraph Views
-        G
-        H
+        direction LR
+        F --> G[HomeView.vue]
+        F --> H[DoersView.vue]
+        F --> J[TodosView.vue]
+        F --> K[RegionsView.vue]
     end
 
     subgraph Components
-        I
+        direction LR
+        H --> H_DoerForm[DoerForm.vue]
+        H --> H_DoerTable[DoerTable.vue]
     end
 ```
 
@@ -53,9 +56,10 @@ graph TD
 
 ## Component Relationships
 
-- `App.vue` is the root component.
-- `RouterView` in `App.vue` renders the component associated with the current route.
-- `HomeView.vue` is currently the only view, rendered for the `/` path.
+- `App.vue` is the root component, containing `TheNavbar.vue` and `RouterView`.
+- `RouterView` in `App.vue` renders the component associated with the current route (`HomeView`, `DoersView`, `TodosView`, `RegionsView`).
+- `DoersView.vue` contains `DoerForm.vue` and `DoerTable.vue`.
+- `TheNavbar.vue` provides navigation links.
 
 ## Critical Implementation Paths
 

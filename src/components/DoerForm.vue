@@ -28,7 +28,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'update:firstName', value: string): void;
   (e: 'update:lastName', value: string): void;
-  (e: 'submit-form'): void;
+  (e: 'submit-form', data: { firstName: string; lastName: string }): void;
 }>();
 
 const handleFirstNameInput = (event: Event) => {
@@ -57,7 +57,7 @@ const isFormInvalid = computed(() => {
 
 const handleSubmit = () => {
   if (!isFormInvalid.value) {
-    emit('submit-form');
+    emit('submit-form', { firstName: props.firstName, lastName: props.lastName });
   }
 };
 </script>

@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
+import TheNavbar from '@/components/TheNavbar.vue';
 </script>
 
 <template>
-  <RouterView />
+  <TheNavbar />
+  <main class="main-content">
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
-/* Add any global styles for App.vue if needed, or remove this block */
+.main-content {
+  padding: 1rem;
+}
 </style>

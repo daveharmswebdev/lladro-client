@@ -2,56 +2,75 @@
 
 ## Current Focus
 
-- Enhancing `DoerForm.vue` with validation and mode handling (create/edit) based on `.clinerules/03-Doer.md`.
-- Implementing unit tests for `DoerForm.vue` to cover new validation logic and behaviors.
+- Finalizing `DoerTable.vue` implementation.
+- Updating `DoerTable.stories.ts` and `DoerTable.spec.ts`.
+- Updating memory bank documentation.
 
 ## Recent Changes
 
-- Updated `src/components/DoerForm.vue`:
-  - Added a `mode` prop ('create' | 'edit') to control button text ('Create' or 'Update').
-  - Implemented input validation for `firstName` and `lastName`:
-    - Required field check.
-    - 25 character limit.
-  - Added display of error messages for each field.
-  - The submit button is now disabled if there are validation errors.
-  - Removed HTML `required` attributes, relying on script-based validation.
-- Created `src/components/__tests__/DoerForm.spec.ts` with unit tests for `DoerForm.vue` using Vitest and Vue Test Utils. Tests cover:
-  - Rendering in 'create' and 'edit' modes.
-  - Input event emissions.
-  - Validation logic for required fields and character limits.
-  - Button disabled state based on validation.
-  - Form submission event emission for valid forms.
-  - Non-emission of submit event for invalid forms.
-- Integrated `DoerForm.vue` into `src/views/HomeView.vue` (previous step, still relevant).
-  - `HomeView.vue` now manages the state for the form inputs (`firstName`, `lastName`).
-  - It handles the `submit-form` event, currently displaying the submitted data on the page and clearing the form.
-- Updated `tsconfig.app.json` to include `"baseUrl": "."` (previous step).
-- The `doer.model.ts` file (interface `Doer { id: number; firstName: string; lastName: string; }`) was provided by the user (previous step).
-- **Storybook Integration:**
-  - Storybook has been set up and configured for the project.
-  - Created `src/components/DoerForm.stories.ts` to showcase `DoerForm.vue` in Storybook.
+- **`DoerTable.vue` Implementation:**
+  - Added `doers` prop to accept an array of `Doer` objects.
+  - Implemented table display with columns: ID, First Name, Last Name, Total Todos.
+  - Added a message "You currently do not have any doers." when the `doers` prop is empty or undefined.
+  - Implemented pagination:
+    - Displays 5 doers per page.
+    - Includes "Previous", "Next", and page number buttons.
+    - Buttons are disabled appropriately (e.g., "Previous" on first page, "Next" on last page).
+  - Implemented sorting:
+    - Clicking on column headers (ID, First Name, Last Name, Total Todos) sorts the table.
+    - Clicking a sorted column header again reverses the sort order.
+    - Sort indicators (▲/▼) are displayed on the active sort column.
+- **`DoerTable.stories.ts` Update:**
+  - Updated `argTypes` to include the `doers` prop.
+  - Updated existing stories (`Default`, `NoDoers`, `ThreeDoers`) to pass data via the `doers` prop.
+  - Renamed `ThirteenDoersPaginated` to `ThirteenDoers` and updated it to pass all 13 mock doers, demonstrating pre-pagination data supply.
+- **`DoerTable.spec.ts` Update:**
+  - Replaced placeholder tests with comprehensive unit tests covering:
+    - Rendering the table title.
+    - "No doers" message display.
+    - Correct display of table headers and doer data.
+    - Pagination functionality (items per page, controls, navigation, button states).
+    - Sorting functionality (by each column, ascending/descending, sort indicators).
+  - Resolved ESLint and TypeScript errors related to `VueWrapper` typing.
+- **Navbar Implementation (Previous):**
+  - Created `src/components/TheNavbar.vue` with links to Home, Doers, Todos, and Regions.
+  - Integrated `TheNavbar.vue` into `src/App.vue`.
+- **View Creation (Previous):**
+  - Created `src/views/DoersView.vue`.
+  - Created `src/views/TodosView.vue` (stub).
+  - Created `src/views/RegionsView.vue` (stub).
+- **Router Configuration (Previous):**
+  - Updated `src/router/index.ts` to include routes for `/`, `/doers`, `/todos`, and `/regions`.
+- **Doer Components (Previous):**
+  - Integrated `DoerForm.vue` and `DoerTable.vue` into `src/views/DoersView.vue`.
+  - `DoersView.vue` now handles `DoerForm` submission (currently logs to console and adds to a local reactive list).
+- **`DoerForm.vue` Update (Previous):**
+  - Modified `DoerForm.vue` to emit `submit-form` with a payload: `{ firstName: string; lastName: string }`.
+- **`doer.model.ts` Update (Previous):**
+  - Updated `Doer` interface to include `totalTodos?: number`.
 
 ## Next Steps
 
-- Implement actual state management for 'Doers' (e.g., using Pinia or a simple reactive array for now).
-- Display a list of created 'Doers'.
+- Implement actual state management for 'Doers' (e.g., using Pinia) in `DoersView.vue` to connect `DoerForm` and `DoerTable`.
+- Style the application, including the navbar and new views/components.
+- Address any remaining Vetur path alias errors if they persist.
+- Implement editing and deleting 'Doers'.
+- Flesh out `TodosView.vue` and `RegionsView.vue`.
 
 ## Active Decisions & Considerations
 
-- Confirmed the use of a stateless (presentational) component pattern for `DoerForm.vue` as per user preference for easier testing and Storybook integration.
-- The `id` field for a `Doer` is not handled by the form; it will need to be managed by a backend or a client-side generation strategy later.
-- Path alias resolution (`@/*`) in `tsconfig.app.json` might require IDE/TS server restarts to be fully recognized after changes.
+- The `DoerTable.vue` component is now fully featured as per the initial requirements in `.clinerules/03-Doer.md`.
+- The `id` field for a `Doer` is still managed by `DoersView.vue` (using `Date.now()`). This will need a more robust solution when integrating with a backend or more permanent client-side storage.
 
 ## Important Patterns & Preferences
 
 - Follow Vue.js best practices.
 - Maintain clean and readable code.
 - Use Single File Components (.vue files).
+- Ensure components are well-tested with unit tests (Vitest) and showcased in Storybook.
 
 ## Learnings & Project Insights
 
-- The initial Vue CLI project contains a fair amount of boilerplate that needs to be cleaned up for a fresh start.
-- Understanding the default file structure helps in identifying what to remove or modify.
-- Stateless (presentational) components in Vue, which receive data via props and emit events for changes, are well-suited for unit testing and Storybook.
-- Type assertions like `(event.target as HTMLInputElement)` directly in Vue templates can cause parsing issues with ESLint/Vetur; moving this logic to `<script setup>` methods is a cleaner solution.
-- Path aliases (e.g., `@/*`) in Vue/TypeScript projects sometimes require an explicit `"baseUrl"` in `tsconfig.json` for IDEs and language services (like Vetur/Volar) to correctly resolve module paths. A restart of the TS server or IDE might be necessary after such changes.
+- Complex component logic (like pagination and sorting) can be effectively managed within the component's `<script setup>` using `ref` and `computed` properties.
+- Vue Test Utils (`@vue/test-utils`) provides powerful tools for testing component interactions, props, and emitted events.
+- Careful typing with `VueWrapper` and component instance types is important for robust and error-free unit tests in TypeScript.
